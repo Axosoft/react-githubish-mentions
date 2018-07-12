@@ -21,6 +21,7 @@ class MentionWrapper extends Component {
     };
     const { children } = props;
     this.triggers = Children.map(children, child => child.props.trigger);
+    this.closeMenu = this.closeMenu.bind(this);
   }
 
   makeOptions = async (query, resolve) => {
@@ -171,32 +172,59 @@ class MentionWrapper extends Component {
   }
 
   render() {
-    const { children, component, getRef, ...inputProps } = this.props;
+    const { 
+      children,
+      component,
+      CustomComponent,
+      getRef,
+      containerStyle,
+      textAreaClassName,
+      textWrapperClassName,
+      ...inputProps
+    } = this.props;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
+    
     return (
-      <div>
+      <div className={textWrapperClassName} style={containerStyle}>
         <textarea
           {...inputProps}
+          className={textAreaClassName}
           ref={this.inputRef}
           onBlur={this.handleBlur}
           onInput={this.handleInput}
           onKeyDown={this.handleKeyDown}
         />
-        {top !== undefined && (
-          <MentionMenu
-            active={active}
-            className={className}
-            left={left}
-            isOpen={options.length > 0}
-            item={item}
-            options={options}
-            hoverItem={this.setActiveOnEvent}
-            selectItem={this.selectItem}
-            style={style}
-            top={top}
-          />
-        )}
+        {CustomComponent ?
+          top !== undefined && (
+            <CustomComponent 
+              active={active}
+              className={className}
+              closeFunc={this.closeMenu}
+              left={left}
+              isOpen={options.length > 0}
+              item={item}
+              options={options}
+              hoverItem={this.setActiveOnEvent}
+              selectItem={this.selectItem}
+              style={style}
+              top={top}
+            />) :
+          top !== undefined && (
+            <MentionMenu
+              active={active}
+              className={className}
+              left={left}
+              isOpen={options.length > 0}
+              item={item}
+              options={options}
+              hoverItem={this.setActiveOnEvent}
+              selectItem={this.selectItem}
+              style={style}
+              top={top}
+            />
+          )
+        }
       </div>
     );
   }

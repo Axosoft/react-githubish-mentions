@@ -58,6 +58,7 @@ class MentionMenu extends React.Component {
       top,
       position: "absolute"
     };
+
     return (
       <div style={menuStyle} className={className} ref={node => this.node = node}>
         {options.map((option, idx) => {
