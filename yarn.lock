@@ -1832,9 +1832,9 @@ tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-"textarea-caret@git://github.com/mattkrick/textarea-caret-position.git#ede461f40712238c505e4a1861fc68de6e7731ad":
-  version "3.0.2"
-  resolved "git://github.com/mattkrick/textarea-caret-position.git#ede461f40712238c505e4a1861fc68de6e7731ad"
+"textarea-caret@git://github.com/component/textarea-caret-position.git#eddc6e29d8c03e25f96d133c12daa5539599f65b":
+  version "3.1.0"
+  resolved "git://github.com/component/textarea-caret-position.git#eddc6e29d8c03e25f96d133c12daa5539599f65b"
 
 to-fast-properties@^1.0.1:
   version "1.0.2"
