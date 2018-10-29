@@ -196,7 +196,8 @@ class MentionWrapper extends Component {
 
     let inputElement;
     if (component) {
-      inputElement = React.createElement(component, componentProps);
+      const Component = component;
+      inputElement = <Component {...componentProps} />;
     } else {
       inputElement = <textarea {...componentProps} />;
     }
