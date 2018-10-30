@@ -174,7 +174,7 @@ class MentionWrapper extends Component {
   render() {
     const {
       children,
-      component,
+      CustomInputComponent,
       CustomComponent,
       getRef,
       containerStyle,
@@ -193,9 +193,8 @@ class MentionWrapper extends Component {
     };
 
     let inputElement;
-    if (component) {
-      const Component = component;
-      inputElement = <Component {...componentProps} />;
+    if (CustomInputComponent) {
+      inputElement = <CustomInputComponent {...componentProps} />;
     } else {
       inputElement = <textarea {...componentProps} />;
     }
