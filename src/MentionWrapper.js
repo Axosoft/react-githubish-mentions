@@ -175,7 +175,6 @@ class MentionWrapper extends Component {
     const {
       children,
       component,
-      componentInputType,
       CustomComponent,
       getRef,
       containerStyle,
@@ -190,8 +189,7 @@ class MentionWrapper extends Component {
       ref: this.inputRef,
       onBlur: this.handleBlur,
       onInput: this.handleInput,
-      onKeyDown: this.handleKeyDown,
-      type: componentInputType || 'input'
+      onKeyDown: this.handleKeyDown
     };
 
     let inputElement;
