@@ -35,13 +35,13 @@
     "rimraf": "^2.5.3"
   },
   "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
     "react-portal-hoc": "^0.4.1",
     "textarea-caret": "git://github.com/component/textarea-caret-position.git#eddc6e29d8c03e25f96d133c12daa5539599f65b"
   },
   "peerDependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
   }
 }
