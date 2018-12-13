@@ -35,6 +35,7 @@
     "rimraf": "^2.5.3"
   },
   "dependencies": {
+    "ramda": "^0.26.1",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
     "react-portal-hoc": "^0.4.1",
