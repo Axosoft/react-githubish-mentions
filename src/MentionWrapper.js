@@ -172,9 +172,9 @@ class MentionWrapper extends Component {
   }
 
   render() {
-    const { 
+    const {
       children,
-      component,
+      CustomInputComponent,
       CustomComponent,
       getRef,
       containerStyle,
@@ -183,19 +183,28 @@ class MentionWrapper extends Component {
     } = this.props;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
-    
+
+    const componentProps = {
+      ...inputProps,
+      ref: this.inputRef,
+      onBlur: this.handleBlur,
+      onInput: this.handleInput,
+      onKeyDown: this.handleKeyDown
+    };
+
+    let inputElement;
+    if (CustomInputComponent) {
+      inputElement = <CustomInputComponent {...componentProps} />;
+    } else {
+      inputElement = <textarea {...componentProps} />;
+    }
+
     return (
       <div className={textWrapperClassName} style={containerStyle}>
-        <textarea
-          {...inputProps}
-          ref={this.inputRef}
-          onBlur={this.handleBlur}
-          onInput={this.handleInput}
-          onKeyDown={this.handleKeyDown}
-        />
+        {inputElement}
         {CustomComponent ?
           top !== undefined && (
-            <CustomComponent 
+            <CustomComponent
               active={active}
               className={className}
               closeFunc={this.closeMenu}
