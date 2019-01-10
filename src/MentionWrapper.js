@@ -43,12 +43,15 @@ class MentionWrapper extends Component {
     const tokens = textBeforeCaret.split(/\s/);
     const lastToken = tokens[tokens.length - 1];
 
-    // check if the text befor the caret ends with the last word
-    const triggerIdx = textBeforeCaret.endsWith(lastToken)
-      ? textBeforeCaret.length - lastToken.length
-      : -1;
+    // Get active trigger
+    const activeTrigger = this.triggers.find(trigger => lastToken.includes(trigger)) || "";
+
+    // check if the text before the caret ends with the last word
+    let triggerIdx = textBeforeCaret.endsWith(lastToken) ? textBeforeCaret.length - (lastToken.length - activeTrigger.length) : -1;
+
     // and if that last word starts with a trigger
-    const maybeTrigger = textBeforeCaret[triggerIdx];
+    const maybeTrigger = textBeforeCaret.substring(triggerIdx - activeTrigger.length, triggerIdx);
+
     const keystrokeTriggered = this.triggers.indexOf(maybeTrigger);
 
     if (keystrokeTriggered !== -1) {
@@ -56,7 +59,7 @@ class MentionWrapper extends Component {
       if (this.props.position === "start") {
         positionIndex = triggerIdx + 1;
       }
-      const query = textBeforeCaret.slice(triggerIdx + 1);
+      const query = textBeforeCaret.substring(triggerIdx);
       const coords = getCaretCoords(this.ref, positionIndex);
       const { top, left } = this.ref.getBoundingClientRect();
       const child = getMenuProps(keystrokeTriggered, this.props.children);
@@ -149,9 +152,9 @@ class MentionWrapper extends Component {
 
   selectItem = active => e => {
     const { options, triggerIdx } = this.state;
-    const preMention = this.ref.value.substr(0, triggerIdx);
+    const preMention = this.ref.value.substr(0, triggerIdx - 1);
     const option = options[active];
-    const mention = this.replace(option, this.ref.value[triggerIdx]);
+    const mention = this.replace(option, this.ref.value[triggerIdx - 1]);
     const postMention = this.ref.value.substr(this.ref.selectionStart);
     const newValue = `${preMention}${mention}${postMention}`;
     this.ref.value = newValue;
