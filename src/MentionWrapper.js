@@ -44,12 +44,7 @@ class MentionWrapper extends Component {
     const lastToken = tokens[tokens.length - 1];
 
     // Get active trigger
-    let activeTrigger = 0;
-    this.triggers.forEach((trigger) => {
-      if (lastToken.includes(trigger)) {
-        activeTrigger = trigger;
-      }
-    });
+    const activeTrigger = this.triggers.find(trigger => lastToken.includes(trigger)) || 0;
 
     // check if the text before the caret ends with the last word
     let triggerIdx = textBeforeCaret.endsWith(lastToken) ? textBeforeCaret.length - (lastToken.length - activeTrigger.length) : -1;
