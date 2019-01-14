@@ -192,6 +192,7 @@ class MentionWrapper extends Component {
       textWrapperClassName,
       ...inputProps
     } = this.props;
+    delete inputProps.onBeforeItemSelect;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
 
