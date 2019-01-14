@@ -44,7 +44,7 @@ class MentionWrapper extends Component {
     const lastToken = tokens[tokens.length - 1];
 
     // Get active trigger
-    const activeTrigger = this.triggers.find(trigger => lastToken.includes(trigger)) || "";
+    const activeTrigger = this.triggers.find(trigger => lastToken.startsWith(trigger)) || "";
 
     // check if the text before the caret ends with the last word
     let triggerIdx = textBeforeCaret.endsWith(lastToken) ? textBeforeCaret.length - (lastToken.length - activeTrigger.length) : -1;
@@ -152,16 +152,24 @@ class MentionWrapper extends Component {
 
   selectItem = active => e => {
     const { options, triggerIdx } = this.state;
-    const preMention = this.ref.value.substr(0, triggerIdx - 1);
+    const { onBeforeItemSelect, onChange } = this.props;
+
+    const preMention = this.ref.value.substr(0, triggerIdx);
     const option = options[active];
-    const mention = this.replace(option, this.ref.value[triggerIdx - 1]);
+    let mention = option.value;
+
+    if (onBeforeItemSelect) {
+      mention = onBeforeItemSelect(mention);
+    }
+
     const postMention = this.ref.value.substr(this.ref.selectionStart);
     const newValue = `${preMention}${mention}${postMention}`;
+
     this.ref.value = newValue;
-    const { onChange } = this.props;
     if (onChange) {
       onChange(e, newValue);
     }
+
     const caretPosition = this.ref.value.length - postMention.length;
     this.ref.setSelectionRange(caretPosition, caretPosition);
     this.closeMenu();
@@ -184,6 +192,7 @@ class MentionWrapper extends Component {
       textWrapperClassName,
       ...inputProps
     } = this.props;
+    delete inputProps.onBeforeItemSelect;
     const { active, child, left, top, options } = this.state;
     const { item, className, style } = child;
 
