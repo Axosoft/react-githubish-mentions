@@ -66,12 +66,13 @@ class MentionWrapper extends Component {
       const { replace, resolve } = child;
       this.replace = replace || defaultReplace;
       this.makeOptions(query, resolve);
+
       // that stupid bug where the caret moves to the end happens unless we do it next tick
       setTimeout(() => {
         this.setState({
           active: 0,
           child,
-          left: window.pageXOffset + coords.left + left + this.ref.scrollLeft,
+          left: window.pageXOffset + coords.left + left - this.ref.scrollLeft,
           triggerIdx,
           top:
             (window.pageYOffset || 0) +
