@@ -37,7 +37,7 @@
   "dependencies": {
     "ramda": "^0.26.1",
     "react-portal-hoc": "^0.4.1",
-    "textarea-caret": "git://github.com/component/textarea-caret-position.git#eddc6e29d8c03e25f96d133c12daa5539599f65b"
+    "textarea-caret": "git://github.com/Axosoft/textarea-caret-position.git#2bed514aa05f80bf2574d5a43c0f66709225c07a"
   },
   "peerDependencies": {
     "react": "^15.4.2",
