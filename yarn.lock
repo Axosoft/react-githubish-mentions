@@ -2023,9 +2023,9 @@ tar@~2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-"textarea-caret@git://github.com/Axosoft/textarea-caret-position.git#2bed514aa05f80bf2574d5a43c0f66709225c07a":
+"textarea-caret@git://github.com/Axosoft/textarea-caret-position.git#4a62d93167b6cfb825d866601032486663bd7c61":
   version "3.1.0"
-  resolved "git://github.com/Axosoft/textarea-caret-position.git#2bed514aa05f80bf2574d5a43c0f66709225c07a"
+  resolved "git://github.com/Axosoft/textarea-caret-position.git#4a62d93167b6cfb825d866601032486663bd7c61"
 
 to-fast-properties@^1.0.1:
   version "1.0.2"
