@@ -8,34 +8,40 @@ class MentionMenu extends React.Component {
       left: props.left,
       top: props.top
     };
+
+    this.bindTopAndLeftToWindow = this.bindTopAndLeftToWindow.bind(this);
   }
+
+  bindTopAndLeftToWindow(props) {
+    let top = props.top;
+    let left = props.left;
+    
+    const windowHeight = window.innerHeight + window.pageYOffset;
+    const windowWidth = window.innerWidth + window.pageXOffset;
+    //prevent menu from going off bottom of screen
+    if (this.node && top + this.node.offsetHeight > windowHeight) {
+      top = windowHeight - (this.node.offsetHeight + 10);
+    }
+
+    //prevent menu from going off the right of the screen
+    if (this.node && left + this.node.offsetWidth > windowWidth) {
+      left = windowWidth - (this.node.offsetWidth + 10);
+    }
+    if (this.state.top !== top || this.state.left !== left) {
+      this.setState({ top, left });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    let left = nextProps.left;
-    let top = nextProps.top;
-
-    //prevent menu from going off the right of the screen
-    if (this.node && left + this.node.offsetWidth > window.innerWidth) {
-      left = window.innerWidth - (this.node.offsetWidth + 10);
-    }
-    //prevent menu from going off bottom of screen
-    if (this.node && top + this.node.offsetHeight > window.innerHeight) {
-      top = window.innerHeight - (this.node.offsetHeight + 10);
-    }
-
-    if (left != this.state.left || top != this.state.top) {
-      this.setState({ left, top });
+    if (nextProps.left != this.state.left || nextProps.top != this.state.top) {
+      this.bindTopAndLeftToWindow(nextProps);
     }
   }
+
   componentDidMount() {
-    //prevent menu from going off the right of the screen
-    if (this.node && this.props.left + this.node.offsetWidth > window.innerWidth) {
-      this.setState({ left: window.innerWidth - (this.node.offsetWidth + 10) });
-    }
-    //prevent menu from going off bottom of screen
-    if (this.node && this.props.top + this.node.offsetHeight > window.innerHeight) {
-      this.setState({ top: window.innerHeight - (this.node.offsetHeight + 10) });
-    }
+    this.bindTopAndLeftToWindow(this.props);
   }
+
   render() {
     const {
       active,
