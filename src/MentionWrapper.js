@@ -24,16 +24,16 @@ class MentionWrapper extends Component {
     this.closeMenu = this.closeMenu.bind(this);
   }
 
-  makeOptions = async (query, resolve) => {
-    const options = await resolve(query);
-    if (options.length > 0) {
-      this.setState({
-        options
-      });
-    } else {
-      this.closeMenu();
-    }
-  };
+  makeOptions = (query, resolve) => Promise.resolve(resolve(query))
+    .then((options) => {
+      if (options.length > 0) {
+        this.setState({
+          options
+        });
+      } else {
+        this.closeMenu();
+      }
+    });
 
   maybeMention() {
     // get the text preceding the cursor position
