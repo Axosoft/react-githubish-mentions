@@ -1,5 +1,5 @@
 import React from "react";
-import { MentionWrapper, MentionMenu } from "react-githubish-mentions";
+import { MentionWrapper, MentionMenu } from "@axosoft/react-githubish-mentions";
 import profiles from "./data";
 import cn from "classnames";
 

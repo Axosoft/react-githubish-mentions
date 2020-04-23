@@ -1,7 +1,7 @@
 import React from "react";
 import profiles from "./data";
 import cn from "classnames";
-import { MentionWrapper, MentionMenu } from "react-githubish-mentions";
+import { MentionWrapper, MentionMenu } from "@axosoft/react-githubish-mentions";
 
 const MenuItem = props => {
   const { active, username, match_range } = props;
