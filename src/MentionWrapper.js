@@ -123,6 +123,16 @@ class MentionWrapper extends Component {
     }
   };
 
+  handleChange = e => {
+    const { onChange } = this.props;
+    if (onChange) {
+      // The purpose of this is so that the onChange is consistent with
+      // how it is called in 'selectItem' and the value is always passed
+      // as the second arg, instead of the user having to check both args.
+      onChange(e, (e.target && e.target.value) || '');
+    }
+  }
+
   handleKeyDown = e => {
     const { options, active, triggerIdx } = this.state;
     let keyCaught;
@@ -202,6 +212,7 @@ class MentionWrapper extends Component {
       ...inputProps,
       ref: this.inputRef,
       onBlur: this.handleBlur,
+      onChange: this.handleChange,
       onInput: this.handleInput,
       onKeyDown: this.handleKeyDown
     };
