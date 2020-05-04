@@ -138,13 +138,21 @@ class MentionWrapper extends Component {
     let keyCaught;
     if (triggerIdx !== undefined) {
       if (e.key === "ArrowDown") {
+        let newActive = active + 1;
+        if (newActive >= options.length) {
+          newActive = 0;
+        }
         this.setState({
-          active: Math.min(active + 1, options.length - 1)
+          active: newActive
         });
         keyCaught = true;
       } else if (e.key === "ArrowUp") {
+        let newActive = active - 1;
+        if (newActive <= 0) {
+          newActive = options.length - 1;
+        }
         this.setState({
-          active: Math.max(active - 1, 0)
+          active: newActive
         });
         keyCaught = true;
       } else if (e.key === "Tab" || e.key === "Enter") {
