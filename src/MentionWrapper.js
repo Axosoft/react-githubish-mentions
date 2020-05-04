@@ -148,7 +148,7 @@ class MentionWrapper extends Component {
         keyCaught = true;
       } else if (e.key === "ArrowUp") {
         let newActive = active - 1;
-        if (newActive <= 0) {
+        if (newActive < 0) {
           newActive = options.length - 1;
         }
         this.setState({
