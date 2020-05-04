@@ -185,6 +185,7 @@ class MentionWrapper extends Component {
 
   render() {
     const {
+      autoScroll = true,
       children,
       CustomInputComponent,
       CustomComponent,
@@ -233,6 +234,7 @@ class MentionWrapper extends Component {
           top !== undefined && (
             <MentionMenu
               active={active}
+              autoScroll={autoScroll}
               className={className}
               left={left}
               isOpen={options.length > 0}
