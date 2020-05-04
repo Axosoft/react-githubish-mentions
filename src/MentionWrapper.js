@@ -123,18 +123,36 @@ class MentionWrapper extends Component {
     }
   };
 
+  handleChange = e => {
+    const { onChange } = this.props;
+    if (onChange) {
+      // The purpose of this is so that the onChange is consistent with
+      // how it is called in 'selectItem' and the value is always passed
+      // as the second arg, instead of the user having to check both args.
+      onChange(e, (e.target && e.target.value) || '');
+    }
+  }
+
   handleKeyDown = e => {
     const { options, active, triggerIdx } = this.state;
     let keyCaught;
     if (triggerIdx !== undefined) {
       if (e.key === "ArrowDown") {
+        let newActive = active + 1;
+        if (newActive >= options.length) {
+          newActive = 0;
+        }
         this.setState({
-          active: Math.min(active + 1, options.length - 1)
+          active: newActive
         });
         keyCaught = true;
       } else if (e.key === "ArrowUp") {
+        let newActive = active - 1;
+        if (newActive < 0) {
+          newActive = options.length - 1;
+        }
         this.setState({
-          active: Math.max(active - 1, 0)
+          active: newActive
         });
         keyCaught = true;
       } else if (e.key === "Tab" || e.key === "Enter") {
@@ -185,6 +203,7 @@ class MentionWrapper extends Component {
 
   render() {
     const {
+      autoScroll = true,
       children,
       CustomInputComponent,
       CustomComponent,
@@ -201,6 +220,7 @@ class MentionWrapper extends Component {
       ...inputProps,
       ref: this.inputRef,
       onBlur: this.handleBlur,
+      onChange: this.handleChange,
       onInput: this.handleInput,
       onKeyDown: this.handleKeyDown
     };
@@ -233,6 +253,7 @@ class MentionWrapper extends Component {
           top !== undefined && (
             <MentionMenu
               active={active}
+              autoScroll={autoScroll}
               className={className}
               left={left}
               isOpen={options.length > 0}

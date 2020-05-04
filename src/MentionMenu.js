@@ -1,5 +1,6 @@
 import React from "react";
 import portal from "react-portal-hoc";
+import MentionMenuItem from './MentionMenuItem';
 
 class MentionMenu extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class MentionMenu extends React.Component {
   bindTopAndLeftToWindow(props) {
     let top = props.top;
     let left = props.left;
-    
+
     const windowHeight = window.innerHeight + window.pageYOffset;
     const windowWidth = window.innerWidth + window.pageXOffset;
     //prevent menu from going off bottom of screen
@@ -45,8 +46,9 @@ class MentionMenu extends React.Component {
   render() {
     const {
       active,
+      autoScroll,
       className,
-      item: Item,
+      item,
       options,
       hoverItem,
       selectItem,
@@ -66,14 +68,23 @@ class MentionMenu extends React.Component {
     };
 
     return (
-      <div style={menuStyle} className={className} ref={node => this.node = node}>
-        {options.map((option, idx) => {
-          return (
-            <div key={idx} onClick={selectItem(idx)} onMouseOver={hoverItem(idx)}>
-              <Item active={active === idx} {...option} />
-            </div>
-          );
-        })}
+      <div
+        className={className}
+        id='js-react-githubish-mentions-mention-menu'
+        ref={node => this.node = node}
+        style={menuStyle}
+      >
+        {options.map((option, idx) => (
+          <MentionMenuItem
+            active={active === idx}
+            autoScroll={autoScroll}
+            item={item}
+            key={idx}
+            onClick={selectItem(idx)}
+            onMouseOver={hoverItem(idx)}
+            option={option}
+          />
+        ))}
       </div>
     );
   }
