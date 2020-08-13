@@ -1,3 +1,4 @@
+import * as R from 'ramda';
 import React, { Component, Children } from "react";
 import getCaretCoords from "textarea-caret";
 import PropTypes from "prop-types";
@@ -89,13 +90,16 @@ class MentionWrapper extends Component {
 
   closeMenu() {
     setTimeout(() => {
-      this.setState({
+      const resetState = {
         child: {},
         options: [],
         left: undefined,
         top: undefined,
         triggerIdx: undefined
-      });
+      }
+      if (!R.equals(this.state, resetState)) {
+        this.setState(resetState);
+      }
     }, 0);
   }
 
